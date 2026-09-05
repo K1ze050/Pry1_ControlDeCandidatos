@@ -57,6 +57,84 @@ namespace PRY1.Estructuras
             }
         }
 
+        // EXTRAER EL MÁS PRIORITARIO[cite: 2]
+        public NodoHeap Extraer()
+        {
+            // SE ELIMINA LA RAÍZ (LA DE MAYOR PRIORIDAD), SE SUBE EL ÚLTIMO ELEMENTO A LA RAÍZ, Y LUEGO SE HUNDE PARA REACOMODARSE.[cite: 2]
+            if (cantidad == 0) return null;
+            if (cantidad == 1)
+            {
+                cantidad--;
+                return heap[0];
+            }
 
+            NodoHeap prioridad_maxima = heap[0];
+            heap[0] = heap[cantidad - 1];
+            heap[cantidad - 1] = null; // Liberamos memoria
+            cantidad--;
+            
+            HeapifyDown(0);
+            
+            return prioridad_maxima;
         }
+
+        // HEAPIFY DOWN (HUNDIR EL NODO)[cite: 2]
+        private void HeapifyDown(int indice)
+        {
+            while (true)
+            {
+                int mayor = indice;
+                // FÓRMULA MATEMÁTICA PARA UBICAR EL HIJO IZQUIERDO Y DERECHO EN EL ARREGLO[cite: 4]
+                int izquierdo = 2 * indice + 1; 
+                int derecho = 2 * indice + 2;   
+
+                // Verificamos si el hijo izquierdo es mayor que el padre actual
+                if (izquierdo < cantidad && heap[izquierdo].Prioridad > heap[mayor].Prioridad)
+                {
+                    mayor = izquierdo;
+                }
+
+                // Verificamos si el hijo derecho es mayor que el "mayor" encontrado hasta ahora
+                if (derecho < cantidad && heap[derecho].Prioridad > heap[mayor].Prioridad)
+                {
+                    mayor = derecho;
+                }
+
+                if (mayor == indice)
+                {
+                    break;
+                }
+
+                NodoHeap temporal = heap[indice];
+                heap[indice] = heap[mayor];
+                heap[mayor] = temporal;
+                
+                indice = mayor;
+            }
+        }
+
+        // CONSULTAR EL MÁS PRIORITARIO[cite: 2]
+        public NodoHeap Peek()
+        {
+            if (cantidad == 0) return null;
+            return heap[0]; // SIEMPRE ES LA RAÍZ (POSICIÓN 0 DEL ARREGLO)[cite: 2]
+        }
+
+        public bool EstaVacia()
+        {
+            return cantidad == 0;
+        }
+
+        // Función auxiliar obligatoria por restricciones del proyecto
+        private void AmpliarArreglo()
+        {
+            capacidad *= 2;
+            NodoHeap[] nuevoHeap = new NodoHeap[capacidad];
+            for (int i = 0; i < cantidad; i++)
+            {
+                nuevoHeap[i] = heap[i];
+            }
+            heap = nuevoHeap;
+        }
+    }
 }
