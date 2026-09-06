@@ -89,7 +89,7 @@ namespace PRY1.Estructuras
             {
                 int menor = indice;
                 int izquierdo = 2 * indice + 1; // Fórmula para hijo izquierdo
-                int derecho = 2 * indice + 2;   // Fórmula para hijo derecho[cite: 2]
+                int derecho = 2 * indice + 2;   // Fórmula para hijo derecho
 
                 // Buscamos si el hijo izquierdo es menor que el padre
                 if (izquierdo < cantidad && heap[izquierdo].Prioridad < heap[menor].Prioridad)
@@ -103,7 +103,7 @@ namespace PRY1.Estructuras
                     menor = derecho;
                 }
 
-                // Si el índice no cambió, el nodo ya está en su posición correcta[cite: 2]
+                // Si el índice no cambió, el nodo ya está en su posición correcta
                 if (menor == indice) break;
 
                 // Intercambio
@@ -119,12 +119,12 @@ namespace PRY1.Estructuras
         public NodoHeap Peek()
         {
             if (cantidad == 0) return null;
-            return heap[0]; // Siempre es la raíz[cite: 2]
+            return heap[0]; // Siempre es la raíz
         }
 
         public bool EstaVacia()
         {
-            return cantidad == 0; // Verifica si hay elementos[cite: 2]
+            return cantidad == 0; // Verifica si hay elementos
         }
 
         public void Mostrar()

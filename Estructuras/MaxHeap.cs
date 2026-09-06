@@ -38,7 +38,7 @@ namespace PRY1.Estructuras
         {
             while (indice > 0)
             {
-                // FÓRMULA MATEMÁTICA PARA LOCALIZAR AL NODO PADRE[cite: 2]
+                // FÓRMULA MATEMÁTICA PARA LOCALIZAR AL NODO PADRE
                 int padre = (indice - 1) / 2; 
 
                 // ESTA FUNCIÓN SE ASEGURA DE QUE SE CUMPLA LA PROPIEDAD DEL MAX-HEAP: EL PADRE DEBE SER MAYOR QUE SUS HIJOS.[cite: 4]
@@ -57,10 +57,10 @@ namespace PRY1.Estructuras
             }
         }
 
-        // EXTRAER EL MÁS PRIORITARIO[cite: 2]
+        // EXTRAER EL MÁS PRIORITARIO
         public NodoHeap Extraer()
         {
-            // SE ELIMINA LA RAÍZ (LA DE MAYOR PRIORIDAD), SE SUBE EL ÚLTIMO ELEMENTO A LA RAÍZ, Y LUEGO SE HUNDE PARA REACOMODARSE.[cite: 2]
+            // SE ELIMINA LA RAÍZ (LA DE MAYOR PRIORIDAD), SE SUBE EL ÚLTIMO ELEMENTO A LA RAÍZ, Y LUEGO SE HUNDE PARA REACOMODARSE.
             if (cantidad == 0) return null;
             if (cantidad == 1)
             {
@@ -78,7 +78,7 @@ namespace PRY1.Estructuras
             return prioridad_maxima;
         }
 
-        // HEAPIFY DOWN (HUNDIR EL NODO)[cite: 2]
+        // HEAPIFY DOWN (HUNDIR EL NODO)
         private void HeapifyDown(int indice)
         {
             while (true)
@@ -113,11 +113,11 @@ namespace PRY1.Estructuras
             }
         }
 
-        // CONSULTAR EL MÁS PRIORITARIO[cite: 2]
+        // CONSULTAR EL MÁS PRIORITARIO
         public NodoHeap Peek()
         {
             if (cantidad == 0) return null;
-            return heap[0]; // SIEMPRE ES LA RAÍZ (POSICIÓN 0 DEL ARREGLO)[cite: 2]
+            return heap[0]; // SIEMPRE ES LA RAÍZ (POSICIÓN 0 DEL ARREGLO)
         }
 
         public bool EstaVacia()
