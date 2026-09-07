@@ -26,6 +26,7 @@ namespace PRY1
                 Console.WriteLine("2. Buscar candidato por ID");
                 Console.WriteLine("3. Mostrar candidato con menor pretensión salarial");
                 Console.WriteLine("4. Mostrar todos los candidatos ");
+                Console.WriteLine("5. Mostrar candidato con mayor pretensión salarial");
                 Console.WriteLine("0. Salir");
                 Console.Write("Selecciona una opción: ");
                 
@@ -45,6 +46,9 @@ namespace PRY1
                             break;
                         case 4:
                             MostrarTodos();
+                            break;
+                        case 5:
+                            MostrarMayorPretension();
                             break;
                         case 0:
                             Console.WriteLine("Programa finalizado.");
@@ -180,5 +184,21 @@ namespace PRY1
                 Console.WriteLine(baseDatos[i].ToString());
             }
         }
+
+        static void MostrarMayorPretension()
+{
+        if (maxHeap.EstaVacia())
+        {
+           Console.WriteLine("No hay candidatos.");
+         }
+        else
+        {
+        NodoHeap nodo = maxHeap.Peek();
+        Candidato candidato = (Candidato)nodo.Elemento;
+        Console.WriteLine("Candidato con mayor pretención salarial");
+        Console.WriteLine(candidato.ToString());
     }
 }
+    }
+}
+
