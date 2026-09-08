@@ -3,6 +3,87 @@ using System.Collections.Generic;
 
 namespace PRY1.Estructuras
 {
+
+// CLASE AUXILIAR OBLIGATORIA: Emula las listas de Python usando arreglos puros 
+    public class MiLista<T>
+    {
+        private T[] items;
+        public int Count { get; private set; }
+        
+        public MiLista(int capacidad = 10)
+        {
+            items = new T[capacidad];
+            Count = 0;
+        }
+        
+        public T this[int index]
+        {
+            get { return items[index]; }
+            set { items[index] = value; }
+        }
+        
+        public void Add(T item)
+        {
+            if (Count == items.Length) Ampliar();
+            items[Count++] = item;
+        }
+        
+        public void Insert(int index, T item)
+        {
+            if (Count == items.Length) Ampliar();
+            for (int i = Count; i > index; i--) items[i] = items[i - 1];
+            items[index] = item;
+            Count++;
+        }
+        
+        public void RemoveAt(int index)
+        {
+            for (int i = index; i < Count - 1; i++) items[i] = items[i + 1];
+            Count--;
+        }
+        
+        public T Pop(int index = -1)
+        {
+            if (index == -1) index = Count - 1;
+            T val = items[index];
+            RemoveAt(index);
+            return val;
+        }
+        
+        public void AddRange(MiLista<T> other)
+        {
+            for (int i = 0; i < other.Count; i++) Add(other[i]);
+        }
+        
+        public int IndexOf(T item)
+        {
+            for (int i = 0; i < Count; i++)
+                if (object.Equals(items[i], item)) return i;
+            return -1;
+        }
+
+        public MiLista<T> GetRange(int start, int count)
+        {
+            MiLista<T> res = new MiLista<T>(count > 10 ? count : 10);
+            for (int i = 0; i < count; i++) res.Add(items[start + i]);
+            return res;
+        }
+        
+        public void RemoveRange(int start, int count)
+        {
+            for (int i = start + count; i < Count; i++) items[i - count] = items[i];
+            Count -= count;
+        }
+
+        private void Ampliar()
+        {
+            T[] nuevo = new T[items.Length * 2];
+            for (int i = 0; i < Count; i++) nuevo[i] = items[i];
+            items = nuevo;
+        }
+    }
+
+
     public class NodoBPlus
     {
         public bool Hoja { get; set; }              // True si contiene datos reales; False si es un nodo guía.

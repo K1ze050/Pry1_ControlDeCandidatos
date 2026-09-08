@@ -21,14 +21,36 @@ namespace PRY1
 
             while (opcion != 0)
             {
+                // 1. Pintamos el fondo de negro y limpiamos la pantalla
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.Clear();
-                Console.WriteLine("1. Registrar nuevo candidato");
-                Console.WriteLine("2. Buscar candidato por ID");
-                Console.WriteLine("3. Mostrar candidato con menor pretensión salarial");
-                Console.WriteLine("4. Mostrar todos los candidatos ");
-                Console.WriteLine("5. Mostrar candidato con mayor pretensión salarial");
-                Console.WriteLine("0. Salir");
-                Console.Write("Selecciona una opción: ");
+
+                // 2. Dibujamos el encabezado en color Cian
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\n\t+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
+                Console.WriteLine("\t            SISTEMA DE CONTROL DE CANDIDATOS                ");
+                Console.WriteLine("\t+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*");
+                
+                // 3. Opciones del menú en Blanco
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("\t║                                                            ║");
+                Console.WriteLine("\t║  [ 1 ] Registrar nuevo candidato                           ║");
+                Console.WriteLine("\t║  [ 2 ] Buscar candidato por ID                             ║");
+                Console.WriteLine("\t║  [ 3 ] Mostrar candidato con menor pretensión salarial     ║");
+                Console.WriteLine("\t║  [ 4 ] Mostrar todos los candidatos (Usando Árbol B+)      ║");
+                Console.WriteLine("\t║  [ 5 ] Mostrar candidato con mayor pretensión salarial     ║");
+                Console.WriteLine("\t║  [ 6 ] Eliminar un candidato por ID                        ║");
+                Console.WriteLine("\t║  [ 0 ] Salir                                               ║");
+                Console.WriteLine("\t║                                                            ║");
+                
+                // 4. Borde inferior en Cian
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\t╚════════════════════════════════════════════════════════════╝");
+                
+                // 5. Input del usuario en Amarillo
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("\n\t   Selecciona una opción: ");
+                Console.ResetColor();
                 
                 if (int.TryParse(Console.ReadLine(), out opcion))
                 {
@@ -50,18 +72,33 @@ namespace PRY1
                         case 5:
                             MostrarMayorPretension();
                             break;
+                        case 6:
+                            EliminarCandidato();
+                            break;
                         case 0:
-                            Console.WriteLine("Programa finalizado.");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("\tPrograma finalizado.");
+                            Console.ResetColor();
                             break;
                         default:
-                            Console.WriteLine("Opción no válida.");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("\tOpción no válida.");
+                            Console.ResetColor();
                             break;
                     }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\tPor favor, ingrese un número válido.");
+                    Console.ResetColor();
                 }
                 
                 if (opcion != 0)
                 {
-                    Console.WriteLine("\nIngrese un valor valido");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("\n\tPresiona enter");
+                    Console.ResetColor();
                     Console.ReadKey();
                 }
             }
@@ -96,26 +133,40 @@ namespace PRY1
 
         static void RegistrarCandidato()
         {
-            Console.Write("Ingresa su ID: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\tIngresa su ID: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             int id = int.Parse(Console.ReadLine());
+            Console.ResetColor();
 
             if (arbolBPlus.Buscar(id))
             {
-                Console.WriteLine("ID ya existente, no se puede repetir.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\tID ya existente, no se puede repetir.");
+                Console.ResetColor();
                 return;
             }
 
-            Console.Write("Nombre: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\tNombre: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             string nombre = Console.ReadLine();
 
-            Console.Write("Departamento: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\tDepartamento: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             string origen = Console.ReadLine();
 
-            Console.Write("Puesto de aplicación [Gerente|Secretario|Contador|Ventas]: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\tPuesto de aplicación [Gerente|Secretario|Contador|Ventas]: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             string puesto = Console.ReadLine();
 
-            Console.Write("Ingrese la pretensión salarial: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\tIngrese la pretensión salarial: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             double salario = double.Parse(Console.ReadLine());
+            Console.ResetColor();
 
             Candidato nuevo = new Candidato(id, nombre, origen, puesto, salario);
 
@@ -129,29 +180,38 @@ namespace PRY1
                 sw.WriteLine($"{id},{nombre},{origen},{puesto},{salario}");
             }
 
-            Console.WriteLine("Candidato registrado");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n\tCandidato registrado exitosamente.");
+            Console.ResetColor();
         }
 
         static void BuscarCandidato()
         {
-            Console.Write("Coloca su ID y se buscara en sistema: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\tColoca su ID y se buscara en sistema: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             int id = int.Parse(Console.ReadLine());
+            Console.ResetColor();
 
             if (arbolBPlus.Buscar(id))
             {
-                Console.WriteLine("Candidato ubicado:");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\n\tCandidato ubicado:");
+                Console.ResetColor();
                 for (int i = 0; i < baseDatos.Count; i++)
                 {
                     if (baseDatos[i].Id == id)
                     {
-                        Console.WriteLine(baseDatos[i].ToString());
+                        Console.WriteLine("\t" + baseDatos[i].ToString());
                         break;
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Candidato inexistente.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n\tCandidato inexistente.");
+                Console.ResetColor();
             }
         }
 
@@ -159,46 +219,112 @@ namespace PRY1
         {
             if (minHeap.EstaVacia())
             {
-                Console.WriteLine("No cuentas con candidato registrado.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\tNo cuentas con candidato registrado.");
+                Console.ResetColor();
             }
             else
             {
                 NodoHeap nodo = minHeap.Peek();
                 Candidato candidato = (Candidato)nodo.Elemento;
-                Console.WriteLine("Este es el candidato con menos salario:");
-                Console.WriteLine(candidato.ToString());
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\tEste es el candidato con menos salario:");
+                Console.ResetColor();
+                Console.WriteLine("\t" + candidato.ToString());
             }
         }
 
         static void MostrarTodos()
         {
-            if (baseDatos.Count == 0)
+            // Usamos la función Recorrer del Árbol B+ para justificar su uso
+            var idsOrdenados = arbolBPlus.Recorrer();
+
+            if (idsOrdenados.Count == 0)
             {
-                Console.WriteLine("No hay candidatos registrados.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\tNo hay candidatos registrados en el sistema.");
+                Console.ResetColor();
                 return;
             }
 
-            Console.WriteLine("Listado general de candidatos:");
-            for (int i = 0; i < baseDatos.Count; i++)
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\tListado general de candidatos (Ordenados por ID en Árbol B+):");
+            Console.ResetColor();
+
+            for (int i = 0; i < idsOrdenados.Count; i++)
             {
-                Console.WriteLine(baseDatos[i].ToString());
+                int idActual = idsOrdenados[i];
+                // Buscamos el candidato correspondiente a este ID
+                for (int j = 0; j < baseDatos.Count; j++)
+                {
+                    if (baseDatos[j].Id == idActual)
+                    {
+                        Console.WriteLine("\t" + baseDatos[j].ToString());
+                        break;
+                    }
+                }
             }
         }
 
         static void MostrarMayorPretension()
-{
-        if (maxHeap.EstaVacia())
         {
-           Console.WriteLine("No hay candidatos.");
-         }
-        else
-        {
-        NodoHeap nodo = maxHeap.Peek();
-        Candidato candidato = (Candidato)nodo.Elemento;
-        Console.WriteLine("Candidato con mayor pretención salarial");
-        Console.WriteLine(candidato.ToString());
-    }
-}
-    }
-}
+            if (maxHeap.EstaVacia())
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\tNo hay candidatos.");
+                Console.ResetColor();
+            }
+            else
+            {
+                NodoHeap nodo = maxHeap.Peek();
+                Candidato candidato = (Candidato)nodo.Elemento;
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\tCandidato con mayor pretensión salarial:");
+                Console.ResetColor();
+                Console.WriteLine("\t" + candidato.ToString());
+            }
+        }
 
+        static void EliminarCandidato()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("\tIngrese el ID del candidato a eliminar: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            int id = int.Parse(Console.ReadLine());
+            Console.ResetColor();
+
+            // Intentamos eliminar del Árbol B+
+            if (arbolBPlus.Eliminar(id))
+            {
+                // Si se eliminó del árbol, lo quitamos de la base de datos auxiliar
+                for (int i = 0; i < baseDatos.Count; i++)
+                {
+                    if (baseDatos[i].Id == id)
+                    {
+                        baseDatos.RemoveAt(i);
+                        break;
+                    }
+                }
+
+                // Actualizamos el archivo CSV para que la eliminación sea permanente
+                using (StreamWriter sw = new StreamWriter(archivo, false)) // false = sobrescribir todo
+                {
+                    for (int i = 0; i < baseDatos.Count; i++)
+                    {
+                        sw.WriteLine($"{baseDatos[i].Id},{baseDatos[i].Nombre},{baseDatos[i].LugarOrigen},{baseDatos[i].Puesto},{baseDatos[i].PretensionSalarial}");
+                    }
+                }
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\n\tCandidato eliminado exitosamente del Árbol B+ y del archivo.");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n\tError: El candidato con ese ID no existe.");
+                Console.ResetColor();
+            }
+        }
+    }
+}
